@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>login_darkmode</title>
+    <link rel="stylesheet" href="/static/fl_login/registeration/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/fl_login/registeration/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/static/fl_login/registeration/css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="/static/fl_login/registeration/css/styles.css">
+</head>
+
+<body>
+    <section class="pulse animated login-dark">
+        <div class="lgin-dk">
+            <form method="post">
+                {% csrf_token %}
+                <h2 class="sr-only">Login Form</h2>
+                <div class="illustration" style="padding: 7px 0px 28px;"><i class="icon ion-ios-locked-outline"></i></div>
+                <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
+                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div><a class="forgot" href="#">Already registered?&nbsp; Login page</a>
+            </form>
+        </div>
+    </section>
+    <script src="/static/fl_login/registeration/js/jquery.min.js"></script>
+    <script src="/static/fl_login/registeration/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
