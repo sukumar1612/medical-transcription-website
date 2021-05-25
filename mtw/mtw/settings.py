@@ -77,6 +77,8 @@ WSGI_APPLICATION = 'mtw.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+AUTH_USER_MODEL="login.CustomUser"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

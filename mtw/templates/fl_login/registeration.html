@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-
+{% if status == 'reg' %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -29,6 +29,11 @@
     </section>
     <script src="/static/fl_login/registeration/js/jquery.min.js"></script>
     <script src="/static/fl_login/registeration/bootstrap/js/bootstrap.min.js"></script>
-</body>
 
+</body>
+{% else %}
+    <body>
+    <h1>{{ status }}</h1>
+    </body>
+{% endif %}
 </html>
