@@ -5,7 +5,7 @@ from django.contrib import admin
 
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('doctor_name','date_submitted','assign_first_level_user','is_asigned', 'QA_passed')
+    list_display = ('doctor_name','date_submitted','assign_first_level_user','is_asigned','transcription_completed', 'QA_passed')
     search_fields = ('doctor_name',)
     readonly_fields=()
 
