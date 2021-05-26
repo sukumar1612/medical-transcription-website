@@ -8,7 +8,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
 
 from login.forms import UserForm
-from login.models import CustomUser
 from django.http import JsonResponse
 
 # Create your views here.
@@ -19,10 +18,6 @@ def auth_login(request):
     if request.method == 'POST':
         email=request.POST.get('email')
         password=request.POST.get('password')
-        try:
-            username=CustomUser.objects.get(email=email).username
-        except:
-            print("error")
 
         user=authenticate(email=email, password=password)
         print(user)
