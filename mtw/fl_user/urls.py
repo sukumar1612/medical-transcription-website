@@ -5,5 +5,5 @@ from fl_user import views
 app_name = 'fl_user'
 
 urlpatterns = [
-    path('',views.display, name='display'),
+    path('',views.receive_data, name='receive_data'),
 ]
