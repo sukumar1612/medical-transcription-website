@@ -12,6 +12,8 @@ class Job_status(models.Model):
     assign_first_level_user = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'user_designation' : 'first level user'})
 
     audio_file = models.FileField(blank=True)
+    Transcription_document = models.FileField(blank=True)
+
     is_asigned = models.BooleanField(default=False)
     transcription_completed = models.BooleanField(default=False)
     QA_passed = models.BooleanField(default=False)
