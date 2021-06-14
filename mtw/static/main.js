@@ -13,6 +13,10 @@ async function handleform(event){
     //form data
     const fd = new FormData(event.currentTarget);
 
+    function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
     //ajax
     $.ajax({
         type:'POST',
@@ -64,7 +68,6 @@ async function handleform(event){
         contentType: false,
         processData: false,
     })
-
 }
 
 const exampleForm = document.getElementById("upload-form");
