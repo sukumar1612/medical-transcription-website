@@ -6,6 +6,7 @@ from fl_user.forms import Job_status_form, Trans_docs
 from django.http import JsonResponse
 from login.models import User
 from .models import Job_status
+import os
 
 # Create your views here.
 
@@ -47,10 +48,34 @@ def view_task(request):
             jb.save()
         return HttpResponse(reverse('fl_user:view_task'))
 
-    jobs=Job_status.objects.filter(assign_first_level_user=request.user,transcription_completed=False)
+    jobs=Job_status.objects.filter(assign_first_level_user=request.user,transcription_completed=False, is_asigned=True)
     return render(request,'view_task.html',{"jobs":jobs})
 
 @login_required(login_url='')
 def view_task_doc(request):
     jobs=Job_status.objects.filter(Doctor_user=request.user)
     return render(request,'view_task_doc.html',{"jobs":jobs})
+
+@login_required(login_url='')
+def view_task_slu(request):
+    if request.is_ajax():
+        files = request.FILES.dict()
+        checked = request.POST.dict()
+        for i in files.keys():
+            jb = Job_status.objects.get(job_id = int(i))
+            print(jb)
+            os.remove(jb.Transcription_document.path)
+            jb.Transcription_document = files[i]
+            jb.QA_passed = True
+            jb.save()
+        checked.pop('csrfmiddlewaretoken')
+        for i in checked.keys():
+            jb = Job_status.objects.get(job_id=int(i))
+            print(jb)
+            jb.QA_passed = True
+            jb.save()
+
+        return HttpResponse(reverse('fl_user:view_task_slu'))
+
+    jobs=Job_status.objects.filter(assign_second_level_user=request.user, transcription_completed=True, is_asigned=True, QA_passed = False)
+    return render(request,'view_task.html',{"jobs":jobs, "user" : "slu"})
