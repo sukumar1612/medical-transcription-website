@@ -25,17 +25,21 @@
 
 {#start---------------------------------------#}
                 <div class="container mt-3">
-                    <div id="alert-box"></div>
-                    <button id="re-btn" class="btn btn-primary" onclick="on_reload()">Refresh</button>
-                    <br>
+                  <div class="text-left" id="alert-box">
+                    <button id="re-btn" class="btn btn-primary pull-left" onclick="on_reload()">Refresh</button>
+                  </div>
                 <div id="progress-box" class="not-visible">progress</div>
                     <div id="cancel-box" class="not-visible">
-                        <button id="cancel-btn" class="btn btn-danger">cancel</button>
+                      <div class="text-center">
+                          <button id="cancel-btn" class="btn btn-danger">cancel</button>
+                      </div>
                     </div>
                 </div>
                     <form action="" id="upload-form">
                         {% csrf_token %}
-                        <button id="sbbtn" class="btn btn-primary" type="submit">Submit</button>
+                        <div class="text-right">
+                          <button id="sbbtn" class="btn btn-primary pull-right" type="submit">Submit</button>
+                        </div>
 {#end---------------------------------------------------#}
                 <div class="text-center" role="tablist" id="accordion-1">
                     {% for job in jobs %}
