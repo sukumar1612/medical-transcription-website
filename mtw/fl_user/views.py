@@ -9,8 +9,7 @@ from .models import Job_status
 import os
 
 # Create your views here.
-
-@login_required(login_url='')
+@login_required(login_url='login:auth_login')
 def receive_data(request):
     form = Job_status_form()
 
@@ -33,11 +32,20 @@ def receive_data(request):
     }
     return render(request, 'index.html', {'form' : form})
 
-def home(request):
+@login_required(login_url='login:auth_login')
+def doctorhome(request):
     return render(request, 'doctorhome.html')
 
-@login_required(login_url='')
-def view_task(request):
+@login_required(login_url='login:auth_login')
+def fluhome(request):
+    return render(request, 'fluhome.html')
+
+@login_required(login_url='login:auth_login')
+def sluhome(request):
+    return render(request, 'sluhome.html')
+
+@login_required(login_url='login:auth_login')
+def view_task_flu(request):
     if request.is_ajax():
         files = request.FILES.dict()
         for i in files.keys():
@@ -49,14 +57,14 @@ def view_task(request):
         return HttpResponse(reverse('fl_user:view_task'))
 
     jobs=Job_status.objects.filter(assign_first_level_user=request.user,transcription_completed=False, is_asigned=True)
-    return render(request,'view_task.html',{"jobs":jobs})
+    return render(request,'view_task_flu.html',{"jobs":jobs})
 
-@login_required(login_url='')
+@login_required(login_url='login:auth_login')
 def view_task_doc(request):
     jobs=Job_status.objects.filter(Doctor_user=request.user)
     return render(request,'view_task_doc.html',{"jobs":jobs})
 
-@login_required(login_url='')
+@login_required(login_url='login:auth_login')
 def view_task_slu(request):
     if request.is_ajax():
         files = request.FILES.dict()
@@ -78,4 +86,4 @@ def view_task_slu(request):
         return HttpResponse(reverse('fl_user:view_task_slu'))
 
     jobs=Job_status.objects.filter(assign_second_level_user=request.user, transcription_completed=True, is_asigned=True, QA_passed = False)
-    return render(request,'view_task.html',{"jobs":jobs, "user" : "slu"})
+    return render(request,'view_task_slu.html',{"jobs":jobs, "user" : "slu"})

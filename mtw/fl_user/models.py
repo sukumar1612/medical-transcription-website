@@ -23,7 +23,3 @@ class Job_status(models.Model):
 
     def __str__(self):
         return self.audio_name
-
-
-
-
