@@ -40,5 +40,7 @@ def auth_login(request):
                     return redirect('fl_user:fluhome')
                 elif user.user_designation == 'second level user':
                     return redirect('fl_user:sluhome')
+                elif user.user_designation == 'staff':
+                    return redirect('admin/')
 
     return render(request, 'fl_login/login.html')
