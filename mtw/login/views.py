@@ -22,6 +22,7 @@ def Logout(request):
 	logout(request)
 	return redirect('login:auth_login')
 
+
 def auth_login(request):
     if request.method == 'POST':
         email=request.POST.get('email')

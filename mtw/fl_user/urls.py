@@ -12,4 +12,5 @@ urlpatterns = [
     path('view_task_flu/',views.view_task_flu,name="view_task_flu"),
     path('view_task_doc/',views.view_task_doc,name="view_task_doc"),
     path('view_task_slu/',views.view_task_slu,name="view_task_slu"),
+    path('generate_report/',views.generate_report,name="generate_report"),
 ]

@@ -1,12 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from fl_user.forms import Job_status_form, Trans_docs
 from django.http import JsonResponse
 from login.models import User
-from .models import Job_status
+from fl_user.models import Job_status
 import os
+from datetime import datetime, timedelta, time
+from docx import Document
+from docx.shared import Inches
+import io
+from docx.shared import Inches
+
 
 # Create your views here.
 @login_required(login_url='login:auth_login')
@@ -90,3 +96,42 @@ def view_task_slu(request):
 
     jobs=Job_status.objects.filter(assign_second_level_user=request.user, transcription_completed=True, is_asigned=True, QA_passed = False)
     return render(request,'view_task_slu.html',{"jobs":jobs, "user" : "slu"})
+
+@login_required(login_url='login:auth_login')
+def generate_report(request):
+    document = Document()
+    docx_title = "WORK_REPORT.docx"
+
+    today = datetime.now().date()
+    today_start = datetime.combine(today, time())
+
+    TOTAL_JOBS_RECEIVED_DAILY = 'Total job count today is ' + str(
+        Job_status.objects.filter(date_submitted__gte=today_start).count())
+    TOTAL_JOBS_COMPLETED_DAILY = 'Total job completed today is ' + str(
+        Job_status.objects.filter(date_submitted__gte=today_start, QA_passed=True).count())
+
+
+
+    document.add_paragraph('Daily report')
+    document.add_paragraph(TOTAL_JOBS_RECEIVED_DAILY)
+    document.add_paragraph(TOTAL_JOBS_COMPLETED_DAILY)
+    document.add_paragraph('Daily work completion by first level users :')
+    flu=User.objects.filter(user_designation = 'first level user')
+    for i in flu:
+        FLU_TASK_COMPLETION = 'Total job completed by '+ i.email +' is ' + str(
+            Job_status.objects.filter(date_submitted__gte=today_start, transcription_completed=True,
+                                      assign_first_level_user=i).count())
+        document.add_paragraph(FLU_TASK_COMPLETION)
+
+    document.add_paragraph('Daily work completion by second level users :')
+    slu = User.objects.filter(user_designation = 'second level user')
+    for i in slu:
+        SLU_TASK_COMPLETION = 'Total job completed by ' + i.email + ' is ' + str(
+            Job_status.objects.filter(date_submitted__gte=today_start, QA_passed=True,
+                                      assign_second_level_user=i).count())
+        document.add_paragraph(SLU_TASK_COMPLETION)
+
+    buffer = io.BytesIO()
+    document.save(buffer)
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename='WORK_REPORT.docx')

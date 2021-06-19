@@ -1,0 +1,9 @@
+{% extends 'admin/change_list.html' %}
+{% block object-tools %}
+<form id="fontsize-form" action="{% url 'fl_user:generate_report' %}" method="POST">
+    {% csrf_token %}
+    <button class="button" type="submit">Generate report</button>
+</form>
+<br>
+{{ block.super }}
+{% endblock object-tools %}
