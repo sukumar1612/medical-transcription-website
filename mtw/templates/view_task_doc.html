@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>Status:</td>
                                         <td>{% if job.QA_passed %}
-                                                Finished
+                                            <a href="{{ job.Transcription_document.url }}">Finished Click to download</a>
                                             {% endif %}
                                             {% if not job.QA_passed %}
                                                 Pending

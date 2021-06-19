@@ -54,7 +54,7 @@ def view_task_flu(request):
             jb.Transcription_document = files[i]
             jb.transcription_completed = True
             jb.save()
-        return HttpResponse(reverse('fl_user:view_task'))
+        return HttpResponse(reverse('fl_user:view_task_flu'))
 
     jobs=Job_status.objects.filter(assign_first_level_user=request.user,transcription_completed=False, is_asigned=True)
     return render(request,'view_task_flu.html',{"jobs":jobs})
@@ -69,7 +69,9 @@ def view_task_slu(request):
     if request.is_ajax():
         files = request.FILES.dict()
         checked = request.POST.dict()
+        print(files, checked)
         for i in files.keys():
+            print(i)
             jb = Job_status.objects.get(job_id = int(i))
             print(jb)
             os.remove(jb.Transcription_document.path)
@@ -80,8 +82,9 @@ def view_task_slu(request):
         for i in checked.keys():
             jb = Job_status.objects.get(job_id=int(i))
             print(jb)
-            jb.QA_passed = True
-            jb.save()
+            if(checked[i]=='True'):
+                jb.QA_passed = True
+                jb.save()
 
         return HttpResponse(reverse('fl_user:view_task_slu'))
 
