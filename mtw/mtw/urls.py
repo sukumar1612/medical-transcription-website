@@ -25,3 +25,7 @@ urlpatterns = [
     path('', include('fl_user.urls')),
     path('admin/', admin.site.urls,),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'VRN Administration'
+admin.site.index_title = 'Admin Page'
+admin.site.site_title = 'VRN Company'
