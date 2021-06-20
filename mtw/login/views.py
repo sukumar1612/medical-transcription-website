@@ -24,12 +24,13 @@ def Logout(request):
 
 
 def auth_login(request):
+    error=""
     if request.method == 'POST':
         email=request.POST.get('email')
         password=request.POST.get('password')
 
         user=authenticate(email=email, password=password)
-        print(user)
+
         if user:
             if user.is_active:
                 login(request, user)
@@ -41,6 +42,8 @@ def auth_login(request):
                 elif user.user_designation == 'second level user':
                     return redirect('fl_user:sluhome')
                 elif user.user_designation == 'staff':
-                    return redirect('admin/')
+                	return redirect('admin/')
+        elif user is None:
+           error="yes"
 
-    return render(request, 'fl_login/login.html')
+    return render(request, 'fl_login/login.html', {"error":error})

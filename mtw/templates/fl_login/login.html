@@ -14,6 +14,12 @@
 </head>
 
 <body>
+  {% ifequal error "yes" %}
+    <script type="text/javascript">
+    alert('Invalid Login Credentials!')
+    </script>
+  {% endifequal%}
+
     <div class="container">
         <section class="login-clean" style="background: rgb(236,247,236);">
             <form method="post">
@@ -21,7 +27,7 @@
                 <div class="illustration"><i class="icon ion-person" style="color: rgb(5,147,1);"></i></div>
                 <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
                 <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: rgb(5,147,1);">Log In</button></div><a class="forgot" href="/admin/">Admin Login</a>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: rgb(5,147,1);">Log In</button></div><a class="forgot" href="">Can't Login? Contact Admin</a>
             </form>
         </section>
     </div>
