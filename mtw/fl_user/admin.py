@@ -36,6 +36,7 @@ class CustomUserAdmin(admin.ModelAdmin):
                 j=Job_status.objects.get(job_id = int(i))
                 j.assign_first_level_user = User.objects.get(email=request.POST.get('fl_user'))
                 j.assign_second_level_user = User.objects.get(email=request.POST.get('sl_user'))
+                j.is_asigned = True
                 j.save()
             self.message_user(request,
                                   "Changed status on {} orders".format(len(request.POST.getlist('_selected_action'))))
