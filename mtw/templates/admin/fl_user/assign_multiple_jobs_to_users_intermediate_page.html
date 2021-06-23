@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+    <h1>Assign required first level and second level users to these jobs</h1>
+    <p>
+        <h3><b>Summary</b></h3>
+        <ul>
+            <li>Object count : {{ jobs|length }}</li>
+        </ul>
+        <h3><b>Objects</b></h3>
+        {% for job in jobs %}
+            <ul>
+                <li>
+                    Job_status :
+                    {{ job.Doctor_user.email }}, {{ job.date_submitted }}
+                </li>
+            </ul>
+
+            <input type="hidden" name="_selected_action" value="{{ job.job_id }}" />
+        {% endfor %}
+    </p>
+
+    <label for="fl_user">Choose a first level user:</label>
+    <select name="fl_user">
+        {% for i in fluser %}
+            <option value={{ i.email }}>{{ i.email }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="sl_user">Choose a second level user:</label>
+    <select name="sl_user">
+        {% for i in sluser %}
+            <option value={{ i.email }}>{{ i.email }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="hidden" name="action" value="assign_multiple_jobs_to_users" />
+    <input type="submit" name="apply" value="Assign Jobs"/>
+
+</form>
+{% endblock %}

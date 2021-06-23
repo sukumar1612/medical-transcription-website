@@ -17,10 +17,10 @@ import fl_user.views
 # Create your views here.
 
 def Logout(request):
-	if not request.user.is_active:
-		return redirect('login:auth_login')
-	logout(request)
-	return redirect('login:auth_login')
+    if not request.user.is_active:
+        return redirect('login:auth_login')
+    logout(request)
+    return redirect('login:auth_login')
 
 
 def auth_login(request):
@@ -42,7 +42,7 @@ def auth_login(request):
                 elif user.user_designation == 'second level user':
                     return redirect('fl_user:sluhome')
                 elif user.user_designation == 'staff':
-                	return redirect('admin/')
+                    return redirect('admin/')
         elif user is None:
            error="yes"
 
