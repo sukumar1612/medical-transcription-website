@@ -77,6 +77,10 @@
                                         <td><a href="{{ job.audio_file.url }}">{{ job.audio_file }}</a></td>
                                     </tr>
                                     <tr>
+                                        <td>Audio Duration:</td>
+                                        <td>{{ job.duration }}</td>
+                                    </tr>
+                                    <tr>
                                       <input type="file" name="{{job.job_id}}">
 {#                                      <input type="hidden" value ="{{job.Doctor_user.email}}" name="email" >#}
                                       {% if user == "slu" %}
