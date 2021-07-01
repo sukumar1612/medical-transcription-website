@@ -11,7 +11,7 @@ from django.utils.translation import ngettext
 # Register your models here.
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('Doctor_user','date_submitted','duration','assign_first_level_user','is_asigned','transcription_completed', 'QA_passed')
+    list_display = ('Doctor_user','date_submitted','duration','assign_first_level_user','is_asigned','transcription_completed', 'QA_passed', 'feedback_given')
     search_fields = ('Doctor_user__email','Doctor_user__fullname')
     readonly_fields=()
 

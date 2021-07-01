@@ -19,13 +19,15 @@ class Job_status(models.Model):
     audio_file = models.FileField(blank=True)
     duration = models.CharField(max_length=100,blank=True,default="Audio Not Uploaded")
     Transcription_document = models.FileField(blank=True, null=True)
+    feedback = models.TextField(max_length=500)
+    feedback_given = models.BooleanField(default=False)
 
     is_asigned = models.BooleanField(default=False)
     transcription_completed = models.BooleanField(default=False)
     QA_passed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.audio_name
+        return self.Doctor_user.email
 
 def duration_finder(sender, instance, raw, using, update_fields, **kwargs):
     file_was_updated = False
@@ -45,8 +47,6 @@ def duration_finder(sender, instance, raw, using, update_fields, **kwargs):
         d=d+str(int(audio_info.length)%60)
         d=d+" Mins"
         instance.duration = d
-        print("audio duration was was updated")
-    else:
-        print("file not changed - duration was NOT updated")
+        #print("audio duration was was updated")
 
 pre_save.connect(duration_finder, sender=Job_status)

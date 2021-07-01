@@ -27,8 +27,8 @@ def receive_data(request):
             jb_status = form.save(commit = False)
             jb_status.Doctor_user = request.user
             print(request.user.fullname)
-            jb_status.assign_first_level_user = User.objects.get(email= 'sk12@gmail.com')
-            jb_status.assign_second_level_user = User.objects.get(email='sk12@gmail.com')
+            jb_status.assign_first_level_user = User.objects.get(email= 'praveen@gmail.com')
+            jb_status.assign_second_level_user = User.objects.get(email='praveen@gmail.com')
             jb_status.audio_name = request.FILES['audio_file']
             jb_status.save()
 
@@ -67,6 +67,22 @@ def view_task_flu(request):
 
 @login_required(login_url='login:auth_login')
 def view_task_doc(request):
+    if request.is_ajax():
+        print(request.POST.dict())
+        #files = request.FILES.dict()
+        feed_back = request.POST.dict()
+        feed_back.pop('csrfmiddlewaretoken')
+        print(feed_back)
+        for i in feed_back.keys():
+            jb = Job_status.objects.get(job_id = int(i))
+            #print("hello123")
+            print(jb)
+            #print(feed_back[i])
+            jb.feedback= feed_back[i]
+            jb.feedback_given = True
+            jb.save()
+        return HttpResponse(reverse('fl_user:view_task_doc'))
+
     jobs=Job_status.objects.filter(Doctor_user=request.user)
     return render(request,'view_task_doc.html',{"jobs":jobs})
 
