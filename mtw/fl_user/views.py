@@ -68,19 +68,28 @@ def view_task_flu(request):
 @login_required(login_url='login:auth_login')
 def view_task_doc(request):
     if request.is_ajax():
-        print(request.POST.dict())
-        #files = request.FILES.dict()
+        print(request.FILES.dict())
+        #print(request.POST.dict())
+        files = request.FILES.dict()
         feed_back = request.POST.dict()
         feed_back.pop('csrfmiddlewaretoken')
         print(feed_back)
-        for i in feed_back.keys():
+
+        for i in files.keys():
             jb = Job_status.objects.get(job_id = int(i))
-            #print("hello123")
-            print(jb)
-            #print(feed_back[i])
-            jb.feedback= feed_back[i]
-            jb.feedback_given = True
+            os.remove(jb.audio_file.path)
+            jb.audio_file = files[i]
             jb.save()
+
+        for i in feed_back.keys():
+            if(feed_back[i]!=""):
+                jb = Job_status.objects.get(job_id = int(i))
+                #print("hello123")
+                print(jb)
+                #print(feed_back[i])
+                jb.feedback= feed_back[i]
+                jb.feedback_given = True
+                jb.save()
         return HttpResponse(reverse('fl_user:view_task_doc'))
 
     jobs=Job_status.objects.filter(Doctor_user=request.user)

@@ -56,6 +56,12 @@
                             </div>
                             <div class = "card-body collapsible-body">
                                 <table align="center" class="card-text" style="font-size: 19px;">
+                                  <tr>
+                                    {% if not job.transcription_completed %}
+                                    <td>Change File:</td>
+                                    <td><input type="file" name="{{job.job_id}}"></td>
+                                    {% endif %}
+                                  </tr>
                                     <tr>
                                         <td>Doctor Name:</td>
                                         <td>{{ job.Doctor_user.fullname }}</td>
