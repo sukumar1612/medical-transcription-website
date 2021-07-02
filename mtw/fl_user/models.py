@@ -19,7 +19,7 @@ class Job_status(models.Model):
     audio_file = models.FileField(blank=True)
     duration = models.CharField(max_length=100,blank=True,default="Audio Not Uploaded")
     Transcription_document = models.FileField(blank=True, null=True)
-    feedback = models.TextField(max_length=500)
+    feedback = models.TextField(max_length=500, blank=True)
     feedback_given = models.BooleanField(default=False)
 
     is_asigned = models.BooleanField(default=False)
