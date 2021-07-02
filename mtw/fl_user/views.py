@@ -27,8 +27,7 @@ def receive_data(request):
             jb_status = form.save(commit = False)
             jb_status.Doctor_user = request.user
             print(request.user.fullname)
-            jb_status.assign_first_level_user = User.objects.get(email= 'praveen@gmail.com')
-            jb_status.assign_second_level_user = User.objects.get(email='praveen@gmail.com')
+
             jb_status.audio_name = request.FILES['audio_file']
             jb_status.save()
 

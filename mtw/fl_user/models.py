@@ -12,9 +12,9 @@ class Job_status(models.Model):
     date_submitted = models.DateTimeField(auto_now_add=True)
     turn_around_time_hr = models.IntegerField()
     audio_name = models.CharField(max_length=100)
-    assign_first_level_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='first_level_user', limit_choices_to={'user_designation' : 'first level user'})
+    assign_first_level_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='first_level_user', limit_choices_to={'user_designation' : 'first level user'}, null=True)
 
-    assign_second_level_user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='second_level_user',limit_choices_to={'user_designation': 'second level user'})
+    assign_second_level_user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='second_level_user',limit_choices_to={'user_designation': 'second level user'}, null=True)
 
     audio_file = models.FileField(blank=True)
     duration = models.CharField(max_length=100,blank=True,default="Audio Not Uploaded")
