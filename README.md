@@ -11,7 +11,7 @@ choco install rabbitmq
 ```
 
 ### Then install requirements
-
+#### Inside virtual environment
 ```bash
 pip install -r requirements.txt
 ```
