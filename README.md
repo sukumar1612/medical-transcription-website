@@ -28,3 +28,7 @@ python manage.py runserver
 - the Email and password are
 - Email : admin@admin.com
 - password : admin123
+
+#### change the email, password and other details after login to your needs
+
+
