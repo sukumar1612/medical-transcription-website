@@ -26,6 +26,8 @@ class Job_status(models.Model):
     transcription_completed = models.BooleanField(default=False)
     QA_passed = models.BooleanField(default=False)
 
+    expiration_date = models.DateTimeField()
+
     def __str__(self):
         return self.Doctor_user.email
 
